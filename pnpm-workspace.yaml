@@ -1,0 +1,7 @@
+packages:
+  # 所有的子项目都在 packages 目录下
+  - 'packages/*'
+  # all packages in subdirs of components/
+  - 'components/**'
+  # exclude packages that are inside test directories
+  - '!**/test/**'
