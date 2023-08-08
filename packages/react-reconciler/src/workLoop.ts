@@ -29,17 +29,24 @@ function markUpdateFromFiberToRoot(fiber: FiberNode) {
 	return null;
 }
 
-function renderRoot(fiber: FiberRootNode) {
-	prepareFreshStack(fiber);
+function renderRoot(root: FiberRootNode) {
+	prepareFreshStack(root);
 	do {
 		try {
 			workLoop();
 			break;
 		} catch (error) {
-			console.warn('workLoop发生错误');
+			if (__DEV__) {
+				console.warn('workLoop发生错误');
+			}
+
 			workInProgress = null;
 		}
 	} while (true);
+
+	const finishWork = root.current.alternate;
+	root.finishWork = finishWork;
+	// commitRoot(root);
 }
 
 function workLoop() {
